@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     bool rdir, gdir, bdir;
     rdir = gdir = bdir = false;
 
-    while(iter < 2400){
+    while(iter < 600){
         for(int x = 0; x < 512; x++){
             for(int y = 0; y < 272; y++){
                 *(ptr + y * 512 + x) = 0xFF000000 | color;
@@ -46,6 +46,14 @@ int main(int argc, char* argv[])
             }
             b += (bdir) ? -1 : 1;
         }
+        sceKernelDelayThread(16 * 1000);
     }
+
+    for(int x = 0; x < 512; x++){
+        for(int y = 0; y < 272; y++){
+            *(ptr + y * 512 + x) = 0;
+        }
+    }
+
     return 0;
 }

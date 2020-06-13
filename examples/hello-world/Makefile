@@ -3,7 +3,7 @@ TARGET = Tutorial
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 
-OBJS = main.o modulestart.o
+OBJS = main.o modulestart.o prxexports.o
 
 INCDIR = ../include
 CFLAGS = -G0 -Wall -O2
