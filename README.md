@@ -1,2 +1,2 @@
-# psp-llvm
-An LLVM-supported version of the PSPSDK.
+# psptoolchain-llvm
+An LLVM-supported version of the PSPSDK Toolchain.
