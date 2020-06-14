@@ -3,7 +3,7 @@ TARGET = Tutorial
 
 PSPSDK=$(shell psp-config --pspsdk-path)
 
-OBJS = main.o modulestart.o prxexports.o
+OBJS = main.o
 
 INCDIR = ../include
 CFLAGS = -G0 -Wall -O2
@@ -18,8 +18,6 @@ LIBS= -lpsp
 EXTRA_TARGETS = EBOOT.PBP
 PSP_EBOOT_TITLE = Tutorial1
 PSP_FW_VERSION=500
-
-PSP_LARGE_MEMORY = 0
-NO_FIXUP_IMPORTS = 1
+PSP_LARGE_MEMORY = 1
 
 include ../../lib/build.mak

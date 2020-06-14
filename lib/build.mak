@@ -69,6 +69,8 @@ PSPSDK_LIBC_LIB = -lc
 endif
 endif
 
+LIBS += -lpsp
+
 
 # Define the overridable parameters for EBOOT.PBP
 ifndef PSP_EBOOT_TITLE
@@ -140,7 +142,7 @@ SCEkxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
 		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
 
 $(TARGET).elf: $(OBJS) $(EXPORT_OBJ)
-	$(LD) $(LDFLAGS) -T../../lib/linkfile.ld $(LIBS) -o $@ $^
+	$(LD) $(LDFLAGS) -T../../lib/linkfile.ld $(LIBS) -o $@ $^ ../../lib/modulestart.o ../../lib/prxexports.o
 
 $(TARGET_LIB): $(OBJS)
 	$(AR) cru $@ $(OBJS)
