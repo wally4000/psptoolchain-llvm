@@ -16,14 +16,14 @@ endif
 
 CC       = clang
 CXX      = clang++
-AS       = clang
+AS       = llvm-as
 LD       = ld.lld-10
-AR       = clang
-RANLIB   = psp-ranlib
+AR       = llvm-ar
+RANLIB   = llvm-ranlib
 STRIP    = llvm-strip --strip-debug
 MKSFO    = mksfo
 PACK_PBP = pack-pbp
-FIXUP    = psp-fixup-imports
+PRXGEN   = psp-prxgen # Soon to be replaced with prxgen from cargo-psp
 ENC		 = PrxEncrypter
 
 # Add in PSPSDK includes and libraries.
