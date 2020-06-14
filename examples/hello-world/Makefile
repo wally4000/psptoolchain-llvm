@@ -20,7 +20,6 @@ PSP_EBOOT_TITLE = Tutorial1
 PSP_FW_VERSION=500
 
 PSP_LARGE_MEMORY = 0
-BUILD_PRX = 1
 NO_FIXUP_IMPORTS = 1
 
 include ../../lib/build.mak

@@ -20,7 +20,7 @@ AS       = clang
 LD       = ld.lld-10
 AR       = clang
 RANLIB   = psp-ranlib
-STRIP    = psp-strip
+STRIP    = llvm-strip --strip-debug
 MKSFO    = mksfo
 PACK_PBP = pack-pbp
 FIXUP    = psp-fixup-imports
@@ -46,23 +46,8 @@ endif
 CFLAGS += -D_PSP_FW_VERSION=$(PSP_FW_VERSION)
 CXXFLAGS += -D_PSP_FW_VERSION=$(PSP_FW_VERSION)
 
-ifeq ($(BUILD_PRX),1)
-# LDFLAGS  := $(addprefix -L,$(LIBDIR)) -specs=$(PSPSDK)/lib/prxspecs -Wl,-q,-T$(PSPSDK)/lib/linkfile.prx $(LDFLAGS) -
-LDFLAGS += -emit-relocs --eh-frame-hdr
-EXTRA_CLEAN += $(TARGET).elf
-# Setup default exports if needed
-ifdef PRX_EXPORTS
-EXPORT_OBJ=$(patsubst %.exp,%.o,$(PRX_EXPORTS))
-EXTRA_CLEAN += $(EXPORT_OBJ)
-else 
-# EXPORT_OBJ=$(PSPSDK)/lib/prxexports.o
-endif
-else
 LDFLAGS  := $(addprefix -L,$(LIBDIR)) $(LDFLAGS)
-endif
-
-LDFLAGS += $(addprefix -L,$(LIBDIR))
-
+LDFLAGS += -emit-relocs --eh-frame-hdr
 LDFLAGS += --no-gc-sections
 
 
@@ -164,7 +149,6 @@ $(TARGET_LIB): $(OBJS)
 $(PSP_EBOOT_SFO): 
 	$(MKSFO) '$(PSP_EBOOT_TITLE)' $@
 
-ifeq ($(BUILD_PRX),1)
 $(PSP_EBOOT): $(TARGET).prx $(PSP_EBOOT_SFO)
 ifeq ($(ENCRYPT), 1)
 	- $(ENC) $(TARGET).prx $(TARGET).prx
@@ -172,16 +156,10 @@ endif
 	$(PACK_PBP) $(PSP_EBOOT) $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
 		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
 		$(PSP_EBOOT_SND0)  $(TARGET).prx $(PSP_EBOOT_PSAR)
-else
-$(PSP_EBOOT): $(TARGET).elf $(PSP_EBOOT_SFO)
-	# $(STRIP) $(TARGET).elf -o $(TARGET)_strip.elf
-	$(PACK_PBP) $(PSP_EBOOT) $(PSP_EBOOT_SFO) $(PSP_EBOOT_ICON)  \
-		$(PSP_EBOOT_ICON1) $(PSP_EBOOT_UNKPNG) $(PSP_EBOOT_PIC1)  \
-		$(PSP_EBOOT_SND0)  $(TARGET).elf $(PSP_EBOOT_PSAR)
-	# -rm -f $(TARGET)_strip.elf
-endif
 
 %.prx: %.elf
+	cp $(TARGET).elf $(TARGET)_unstripped.elf
+	$(STRIP) $(TARGET).elf
 	psp-prxgen $< $@
 
 %.c: %.exp
