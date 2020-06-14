@@ -30,7 +30,7 @@ ENC		 = PrxEncrypter
 LIBDIR   := $(LIBDIR) . $(PSPSDK)/lib $(PSPSDK)/../lib
 INCDIR   := $(INCDIR) . $(PSPSDK)/include $(PSPSDK)/../include
 
-CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables
+CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables -g3
 CXXFLAGS := $(CFLAGS) $(CXXFLAGS) -std=c++17 -nostdinc++
 ASFLAGS  := $(CFLAGS) $(ASFLAGS)
 

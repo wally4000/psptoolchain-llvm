@@ -19,15 +19,17 @@ extern const char*  sce_newlib_main_thread_name __attribute__((weak));
 extern int main(int argc, char* argv[]);
 
 int _module_main_thread(SceSize argc, void* argv){
+
     int retval = main(argc, argv);
 	return retval;
 }
 
+/*
 int module_start(int argc, char* argv[]){
 	return main(argc, argv);
-}
+}*/
 
-/*
+
 int module_start(int argc, char* argv[]){
 	int (*myFunc)(SceSize argc, void* argv) = &_module_main_thread; 
 
@@ -55,9 +57,9 @@ int module_start(int argc, char* argv[]){
 		myFunc = (void *) ((u32) myFunc & 0x7fffffff);
 	}
 
-	SceUID thid;
-	thid = sceKernelCreateThread(threadName, (void *) myFunc, priority, stackSize, attribute, 0);
+	SceUID thid = 0;
+	thid = sceKernelCreateThread(threadName, &_module_main_thread, priority, stackSize, attribute, 0);
 	sceKernelStartThread(thid, 0, 0);
 
-    return main(argc, argv);
-}*/
+    return 0;
+}
