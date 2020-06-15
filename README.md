@@ -21,7 +21,7 @@ PSP Toolchain will be installed in $HOME/.pspdev
 # Compiling:
 
 ## cmake
-  `set (CMAKE_TOOLCHAIN_FILE $HOME/pspdev/psp/share/cmake/PSP.cmake)`
+  `set (CMAKE_TOOLCHAIN_FILE $PSPDEV/psp/share/cmake/PSP.cmake)`
   Add the above to your cmakelists.txt file and it should do it's thing.
 
 ## Makefiles 
