@@ -12,8 +12,6 @@
 #ifndef __PSPFPU_H__
 #define __PSPFPU_H__
 
-#include <stdint.h>
-
 /* Note the bit settings in here come from an NEC MIPSv4 document,
  * they seem sensible.
  */
@@ -82,14 +80,14 @@ enum PspFpuExceptions
  *
  * @return The value of the control/status register
  */
-uint32_t pspFpuGetFCR31(void);
+unsigned long pspFpuGetFCR31(void);
 
 /**
  * Set the current value of the control/status register
  *
  * @param var - The value to set.
  */
-void pspFpuSetFCR31(uint32_t var);
+void pspFpuSetFCR31(unsigned long var);
 
 /**
  * Set the current round mode
@@ -111,35 +109,35 @@ enum PspFpuRoundMode pspFpuGetRoundmode(void);
  *
  * @return Bitmask of the flags, zero or more of ::PspFpuExceptions
  */
-uint32_t pspFpuGetFlags(void);
+unsigned long pspFpuGetFlags(void);
 
 /**
  * Clear the flags bits
  *
  * @param clear - Bitmask of the bits to clear, one or more of ::PspFpuExceptions
  */
-void pspFpuClearFlags(uint32_t clear);
+void pspFpuClearFlags(unsigned long clear);
 
 /**
  * Get the exception enable flags
  *
  * @return Bitmask of the flags, zero or more of ::PspFpuExceptions
  */
-uint32_t pspFpuGetEnable(void);
+unsigned long pspFpuGetEnable(void);
 
 /**
  * Set the enable flags bits
  *
  * @param enable - Bitmask of exceptions to enable, zero or more of ::PspFpuExceptions
  */
-void pspFpuSetEnable(uint32_t enable);
+void pspFpuSetEnable(unsigned long enable);
 
 /**
  * Get the cause bits (only useful if you installed your own exception handler)
  *
  * @return Bitmask of flags, zero or more of ::PspFpuExceptions
  */
-uint32_t pspFpuGetCause(void);
+unsigned long pspFpuGetCause(void);
 
 /**
  * Clear the cause bits
@@ -147,7 +145,7 @@ uint32_t pspFpuGetCause(void);
  * @param clear - Bitmask of the bits to clear, one or more of ::PspFpuExceptions
  *
  */
-void pspFpuClearCause(uint32_t clear);
+void pspFpuClearCause(unsigned long clear);
 
 /**
  * Get the current value of the FS bit (if FS is 0 then an exception occurs with
@@ -155,28 +153,28 @@ void pspFpuClearCause(uint32_t clear);
  *
  * @return The current state of the FS bit (0 or 1)
  */
-uint32_t pspFpuGetFS(void);
+unsigned long pspFpuGetFS(void);
 
 /**
  * Set the FS bit
  *
  * @param fs - 0 or 1 to unset or set fs
  */
-void pspFpuSetFS(uint32_t fs);
+void pspFpuSetFS(unsigned long fs);
 
 /**
  * Get the condition flags (8 bits)
  *
  * @return The current condition flags
  */
-uint32_t pspFpuGetCondbits(void);
+unsigned long pspFpuGetCondbits(void);
 
 /**
  * Clear the condition bits
  *
  * @param clear - Bitmask of the bits to clear
  */
-void pspFpuClearCondbits(uint32_t clear);
+void pspFpuClearCondbits(unsigned long clear);
 
 /**
  * returns absolute value
@@ -241,12 +239,12 @@ float pspFpuFrac(float f);
 /**
  *
  */
-float pspFpuReinterpretFloat(uint32_t ui);
+float pspFpuReinterpretFloat(unsigned long ui);
 
 /**
  *
  */
-uint32_t pspFpuReinterpretUint(float f);
+unsigned long pspFpuReinterpretUint(float f);
 
 /**
  *

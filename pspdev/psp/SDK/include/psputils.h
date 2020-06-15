@@ -28,23 +28,33 @@ extern "C" {
 
 /*@{*/
 
-#include <sys/time.h>
+struct sceTimezone {
+  int tz_minuteswest;     /* minutes west of Greenwich */
+  int tz_dsttime;         /* type of DST correction */
+};
+
+struct timeval {
+  long      tv_sec;     /* seconds */
+  long tv_usec;    /* microseconds */
+};
+
+
 
 /**
   * Get the time in seconds since the epoc (1st Jan 1970)
   *
   */
-time_t sceKernelLibcTime(time_t *t);
+long sceKernelLibcTime(long *t);
 
 /**
   * Get the processor clock used since the start of the process
   */
-clock_t sceKernelLibcClock(void);
+long sceKernelLibcClock(void);
 
 /**
   * Get the current time of time and time zone information
   */
-int sceKernelLibcGettimeofday(struct timeval *tp, struct timezone *tzp);
+long sceKernelLibcGettimeofday(struct timeval *tp, struct sceTimezone *tzp);
 
 /**
   * Write back the data cache to memory

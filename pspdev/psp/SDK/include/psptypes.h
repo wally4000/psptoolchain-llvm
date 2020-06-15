@@ -18,7 +18,6 @@
 #ifndef _PSPTYPES_H_
 #define _PSPTYPES_H_ 1
 
-#include <stdint.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -35,32 +34,32 @@ extern "C" {
 /* Legacy ps2dev types. */
 #ifndef PSP_LEGACY_TYPES_DEFINED
 #define PSP_LEGACY_TYPES_DEFINED
-typedef	uint8_t				u8;
-typedef uint16_t			u16;
+typedef	unsigned char				u8;
+typedef unsigned short			u16;
 
-typedef uint32_t			u32;
-typedef uint64_t			u64;
+typedef unsigned long			u32;
+typedef unsigned long long			u64;
 
-typedef int8_t				s8;
-typedef int16_t				s16;
+typedef signed char				s8;
+typedef signed short				s16;
 
-typedef int32_t				s32;
-typedef int64_t				s64;
+typedef signed long				s32;
+typedef signed long long				s64;
 #endif
 
 #ifndef PSP_LEGACY_VOLATILE_TYPES_DEFINED
 #define PSP_LEGACY_VOLATILE_TYPES_DEFINED
-typedef	volatile uint8_t		vu8;
-typedef volatile uint16_t		vu16;
+typedef	volatile unsigned char		vu8;
+typedef volatile unsigned short		vu16;
 
-typedef volatile uint32_t		vu32;
-typedef volatile uint64_t		vu64;
+typedef volatile unsigned long		vu32;
+typedef volatile unsigned long long		vu64;
 
-typedef volatile int8_t			vs8;
-typedef volatile int16_t		vs16;
+typedef volatile signed char			vs8;
+typedef volatile signed short		vs16;
 
-typedef volatile int32_t		vs32;
-typedef volatile int64_t		vs64;
+typedef volatile signed long		vs32;
+typedef volatile signed long long		vs64;
 #endif
 
 /* MIPS-like accessor macros. */
@@ -76,17 +75,17 @@ static __inline__ void _sd(u64 val, u32 addr) { *(vu64 *)addr = val; }
 
 /* SCE types. */
 typedef unsigned char SceUChar8;
-typedef uint16_t SceUShort16;
-typedef uint32_t SceUInt32;
-typedef uint64_t SceUInt64;
-typedef uint64_t SceULong64;
+typedef unsigned short SceUShort16;
+typedef unsigned long SceUInt32;
+typedef unsigned long long SceUInt64;
+typedef unsigned long long SceULong64;
 /*typedef unsigned int SceULong128 __attribute__((mode(TI)));*/
 
 typedef char SceChar8;
-typedef int16_t SceShort16;
-typedef int32_t SceInt32;
-typedef int64_t SceInt64;
-typedef int64_t SceLong64;
+typedef signed short SceShort16;
+typedef signed long SceInt32;
+typedef signed long long SceInt64;
+typedef signed long long SceLong64;
 /*typedef int SceLong128 __attribute__((mode(TI)));*/
 
 typedef float SceFloat;

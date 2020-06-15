@@ -13,7 +13,6 @@
 #define PSPSYSCLIB_H
 
 #include <pspkerneltypes.h>
-#include <stdarg.h>
 
 #ifdef __cplusplus
 extern "C" {
@@ -31,7 +30,7 @@ typedef void (*prnt_callback)(void *ctx, int ch);
  * @param args - Arguments for format
  *
  */
-void prnt(prnt_callback cb, void *ctx, const char *fmt, va_list args);
+void prnt(prnt_callback cb, void *ctx, const char *fmt, char* args);
 
 /*@}*/
 
