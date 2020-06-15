@@ -2,7 +2,7 @@
 
 A modern approach to the PSPSDK Toolchain using LLVM / Clang which will enable easy access to C / C++ standards and updated tools.
 
-# Why Clang / LLVM?
+## Why Clang / LLVM?
 - Clang / LLVM are unmodified, no manual patching required.
 - Super quick to compile / install (Dependant on internet connection but should be miles quicker than existing install)
 
