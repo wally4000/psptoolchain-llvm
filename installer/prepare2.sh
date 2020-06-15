@@ -10,6 +10,3 @@ apt-get -y install libfuzzer-10-dev lldb-10 lld-10 libc++-10-dev libc++abi-10-de
 
 echo "Dependencies have been installed!"
 
-echo "Setting up PSPDev Environment"
-mkdir "$HOME/.pspdev"
-cp -r "$PWD/pspdev/" "$HOME/.pspdev/"
