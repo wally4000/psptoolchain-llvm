@@ -142,7 +142,7 @@ SCEkxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
 		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
 
 $(TARGET).elf: $(OBJS) $(EXPORT_OBJ)
-	$(LD) $(LDFLAGS) -T../../lib/linkfile.ld $(LIBS) -o $@ $^ ../../lib/modulestart.o ../../lib/prxexports.o
+	$(LD) $(LDFLAGS) -T $(HOME)/.pspdev/lib/linkfile.ld $(LIBS) -o $@ $^ $(HOME)/.pspdev/lib/modulestart.o $(HOME)/.pspdev/lib/prxexports.o
 
 $(TARGET_LIB): $(OBJS)
 	$(AR) cru $@ $(OBJS)
