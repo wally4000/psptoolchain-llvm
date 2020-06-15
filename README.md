@@ -16,7 +16,7 @@ Note: For installation of Clang / LLVM you will need to have sudo access. You wi
 
 # File Locations:
 
-PSP Toolchain will be installed in $HOME/.pspdev
+PSP Toolchain will be installed in /usr/local/pspdev
 
 # Compiling:
 
