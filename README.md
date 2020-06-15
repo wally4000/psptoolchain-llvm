@@ -1,10 +1,29 @@
 # psptoolchain-llvm
-An LLVM-supported version of the PSPSDK Toolchain. Currently it relies on rust-psp in order to run and work, even though this can be used for C & C++.
 
-# Install
+A modern approach to the PSPSDK Toolchain using LLVM / Clang which will enable easy access to C / C++ standards and updated tools.
 
-In order to install LLVM & Dependencies, please run "./installer/prepare.sh" in order to install Rust & LLVM.
+## Why Clang / LLVM?
+- Clang / LLVM are unmodified, no manual patching required.
+- Super quick to compile / install (Dependant on internet connection but should be miles quicker than existing install)
 
-In order to install the PSP Toolchain, please run "./installer/install.sh" in order to copy and build to /usr/local/pspdev/include and /usr/local/pspdev/lib.
 
-This will let you use the PSP Core SDK.
+
+# Installing
+
+Installing is easy, just run "./installer/prepare.sh" 
+
+Note: For installation of Clang / LLVM you will need to have sudo access. You will be prompted to insert password
+
+# File Locations:
+
+PSP Toolchain will be installed in /usr/local/pspdev
+
+# Compiling:
+
+## cmake
+  `set (CMAKE_TOOLCHAIN_FILE $PSPDEV/psp/share/cmake/PSP.cmake)`
+  Add the above to your cmakelists.txt file and it should do it's thing.
+
+## Makefiles 
+
+TBD.
