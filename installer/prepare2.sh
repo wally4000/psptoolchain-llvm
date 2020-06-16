@@ -14,4 +14,4 @@ echo "Setting up PSPDev Directory"
 echo "Setting up PSPDev Environment"
 mkdir "/usr/local/pspdev-clang"
 cp -ra "$PWD/pspdev/." "/usr/local/pspdev-clang"
-
+echo "Make sure to export the SDK path by running export PSPSDK_CLANG=/usr/local/pspdev-clang"

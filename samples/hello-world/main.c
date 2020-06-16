@@ -1,6 +1,5 @@
 #include <pspkernel.h>
 #include <pspdebug.h>
-#include <stdbool.h>
 #include <pspdisplay.h>
 
 PSP_MODULE_INFO("HELLO WORLD", 0, 1, 0);
@@ -13,8 +12,8 @@ int main(int argc, char* argv[])
     unsigned int iter = 0;
     unsigned char r, g, b;
     r = g = b = 1;
-    bool rdir, gdir, bdir;
-    rdir = gdir = bdir = false;
+    int rdir, gdir, bdir;
+    rdir = gdir = bdir = 0;
 
     while(iter < 600){
         for(int x = 0; x < 512; x++){

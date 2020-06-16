@@ -9,11 +9,6 @@
 # Copyright (c) 2005 John Kelley <ps2dev@kelley.ca>
 #
 
-# Note: The PSPSDK make variable must be defined before this file is included.
-ifeq ($(PSPSDK),)
-$(error $$(PSPSDK) is undefined.  Use "PSPSDK := $$(shell psp-config --pspsdk-path)" in your Makefile)
-endif
-
 CC       = clang
 CXX      = clang++
 AS       = llvm-as
@@ -27,10 +22,10 @@ PRXGEN   = psp-prxgen # Soon to be replaced with prxgen from cargo-psp
 ENC		 = PrxEncrypter
 
 # Add in PSPSDK includes and libraries.
-LIBDIR   := $(LIBDIR) . $(PSPSDK)/lib $(PSPSDK)/../lib
-INCDIR   := $(INCDIR) . $(PSPSDK)/include $(PSPSDK)/../include
+LIBDIR   := $(LIBDIR) . $(PSPSDK_CLANG)/psp/SDK/lib $(PSPSDK_CLANG)/psp/lib 
+INCDIR   := $(INCDIR) . $(PSPSDK_CLANG)/psp/SDK/include $(PSPSDK_CLANG)/psp/include
 
-CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables -g3
+CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables -g3 -ffreestanding
 CXXFLAGS := $(CFLAGS) $(CXXFLAGS) -std=c++17 -nostdinc++
 ASFLAGS  := $(CFLAGS) $(ASFLAGS)
 
@@ -49,25 +44,6 @@ CXXFLAGS += -D_PSP_FW_VERSION=$(PSP_FW_VERSION)
 LDFLAGS  := $(addprefix -L,$(LIBDIR)) $(LDFLAGS)
 LDFLAGS += -emit-relocs --eh-frame-hdr
 LDFLAGS += --no-gc-sections
-
-
-# Library selection.  By default we link with Newlib's libc.  Allow the
-# user to link with PSPSDK's libc if USE_PSPSDK_LIBC is set to 1.
-
-ifeq ($(USE_KERNEL_LIBC),1)
-# Use the PSP's kernel libc
-PSPSDK_LIBC_LIB = 
-CFLAGS := -I$(PSPSDK)/include/libc $(CFLAGS)
-else
-ifeq ($(USE_PSPSDK_LIBC),1)
-# Use the pspsdk libc
-PSPSDK_LIBC_LIB = -lpsplibc
-CFLAGS := -I$(PSPSDK)/include/libc $(CFLAGS)
-else
-# Use newlib (urgh)
-PSPSDK_LIBC_LIB = -lc
-endif
-endif
 
 LIBS += -lpsp
 
@@ -142,7 +118,7 @@ SCEkxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
 		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
 
 $(TARGET).elf: $(OBJS) $(EXPORT_OBJ)
-	$(LD) $(LDFLAGS) -T $(HOME)/.pspdev/lib/linkfile.ld $(LIBS) -o $@ $^ $(HOME)/.pspdev/lib/modulestart.o $(HOME)/.pspdev/lib/prxexports.o
+	$(LD) $(LDFLAGS) -T $(PSPSDK_CLANG)/psp/SDK/lib/linkfile.ld -lm -lg -lc $(LIBS) -o $@ $^ $(PSPSDK_CLANG)/psp/SDK/lib/prxexports.o --allow-multiple-definition
 
 $(TARGET_LIB): $(OBJS)
 	$(AR) cru $@ $(OBJS)
