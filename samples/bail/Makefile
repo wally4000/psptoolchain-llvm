@@ -1,15 +1,15 @@
 TARGET = Tutorial
 
-OBJS = main.o
+OBJS = main.o crt0.o
 
-INCDIR = ../include
+INCDIR = ../include ../../pspdev/psp/libc/include
 CFLAGS = -G0 -Wall -O2
 CXXFLAGS = $(CFLAGS) -fno-exceptions -fno-rtti
 ASFLAGS = $(CFLAGS)
 
-LIBDIR =
+LIBDIR = ../../pspdev/psp/libc/lib
 LDFLAGS = 
-LIBS= 
+LIBS=
 
 
 EXTRA_TARGETS = EBOOT.PBP

@@ -25,7 +25,7 @@ ENC		 = PrxEncrypter
 LIBDIR   := $(LIBDIR) . $(PSPSDK_CLANG)/psp/SDK/lib $(PSPSDK_CLANG)/psp/lib 
 INCDIR   := $(INCDIR) . $(PSPSDK_CLANG)/psp/SDK/include $(PSPSDK_CLANG)/psp/include
 
-CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables -g3 -nostdinc
+CFLAGS   := $(addprefix -I,$(INCDIR)) $(CFLAGS) -target mips -mcpu=mips2 -msingle-float -mlittle-endian -std=c11 -fstrict-aliasing -funwind-tables -g3 -ffreestanding
 CXXFLAGS := $(CFLAGS) $(CXXFLAGS) -std=c++17 -nostdinc++
 ASFLAGS  := $(CFLAGS) $(ASFLAGS)
 
@@ -118,7 +118,7 @@ SCEkxploit: $(TARGET).elf $(PSP_EBOOT_SFO)
 		$(PSP_EBOOT_SND0) NULL $(PSP_EBOOT_PSAR)
 
 $(TARGET).elf: $(OBJS) $(EXPORT_OBJ)
-	$(LD) $(LDFLAGS) -T $(PSPSDK_CLANG)/psp/SDK/lib/linkfile.ld $(LIBS) -o $@ $^ $(PSPSDK_CLANG)/psp/SDK/lib/modulestart.o $(PSPSDK_CLANG)/psp/SDK/lib/prxexports.o
+	$(LD) $(LDFLAGS) -T $(PSPSDK_CLANG)/psp/SDK/lib/linkfile.ld -lm -lg -lc $(LIBS) -o $@ $^ $(PSPSDK_CLANG)/psp/SDK/lib/prxexports.o --allow-multiple-definition
 
 $(TARGET_LIB): $(OBJS)
 	$(AR) cru $@ $(OBJS)
